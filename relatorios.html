@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EnergyControl | Relatórios</title>
+    <link rel="shortcut icon" href="./assets/raio.svg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/relatorios.css" />
+  </head>
+  <body>
+    <header class="mobile-header">
+      <div class="logo-mobile">
+        <img src="./assets/raio.svg" alt="Raio" />
+        <span>EnergyControl</span>
+      </div>
+      <button class="btn-hamburger" id="openMenuBtn" aria-label="Abrir menu">
+        ☰
+      </button>
+    </header>
+
+    <div class="app-container">
+      <aside class="menu" id="sidebarMenu">
+        <button class="btn-close" id="closeMenuBtn" aria-label="Fechar menu">
+          &times;
+        </button>
+
+        <div class="logo">
+          <img
+            src="./assets/raio.svg"
+            alt="Imagem de um raio"
+            class="logo-icon"
+          />
+          <h1 class="logo-title">EnergyControl</h1>
+        </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="./dashboard.html">Dashboard</a></li>
+            <li><a href="relatorios.html" class="active">Relatórios</a></li>
+            <li><a href="configuracoes.html">Configurações</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <section class="page-section">
+          <h2>Relatório de Consumo Energético</h2>
+          <p class="subtitle">
+            Acompanhe os gastos estimados por equipamento e período.
+          </p>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <h3>Consumo Total Mensal</h3>
+              <p class="metric-value">345 kWh</p>
+            </div>
+            <div class="metric-card">
+              <h3>Custo Estimado</h3>
+              <p class="metric-value warning">R$ 285,40</p>
+            </div>
+            <div class="metric-card">
+              <h3>Equipamento Mais Gastão</h3>
+              <p class="metric-value">Ar Condicionado</p>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <h3>Consumo por Equipamento (kWh)</h3>
+            <div class="chart-bars">
+              <div class="bar-group">
+                <span>Ar Condicionado Split (160kWh)</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 80%"></div>
+                </div>
+              </div>
+              <div class="bar-group">
+                <span>Geladeira Duplex (95kWh)</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 50%"></div>
+                </div>
+              </div>
+              <div class="bar-group">
+                <span>Chuveiro Elétrico (60kWh)</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 30%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./menu.js"></script>
+  </body>
+</html>

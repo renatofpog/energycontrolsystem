@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EnergyControl | Dashboard</title>
+    <link rel="shortcut icon" href="./assets/raio.svg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/dashboard.css" />
+  </head>
+  <body>
+    <header class="mobile-header">
+      <div class="logo-mobile">
+        <img src="./assets/raio.svg" alt="Raio" />
+        <span>EnergyControl</span>
+      </div>
+      <button class="btn-hamburger" id="openMenuBtn" aria-label="Abrir menu">
+        ☰
+      </button>
+    </header>
+
+    <div class="app-container">
+      <aside class="menu" id="sidebarMenu">
+        <button class="btn-close" id="closeMenuBtn" aria-label="Fechar menu">&times;</button>
+        
+        <div class="logo">
+          <img src="./assets/raio.svg" alt="Imagem de um raio" class="logo-icon" />
+          <h1 class="logo-title">EnergyControl</h1>
+        </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="relatorios.html">Relatórios</a></li>
+            <li><a href="configuracoes.html">Configurações</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <section class="equipamentos-section">
+          <h2>Gerenciar Equipamentos</h2>
+          
+          <div class="search-bar">
+            <input type="text" id="pesquisa" placeholder="Pesquisar equipamentos..." />
+            <button class="btn-add">+ Cadastrar</button>
+          </div>
+
+          <div class="equipamentos-grid">
+            <div class="card-equipamento">
+              <div class="card-info">
+                <h3>Ar Condicionado Split</h3>
+                <p>Potência: 1200W | Uso diário: 8h</p>
+              </div>
+
+              <div class="card-actions-wrapper">
+                <span class="badge-consumo alto">Alto Consumo</span>
+                <div class="actions">
+                  <button class="btn-action btn-edit">✏️ Editar</button>
+                  <button class="btn-action btn-delete">🗑️ Excluir</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-equipamento">
+              <div class="card-info">
+                <h3>Geladeira Duplex</h3>
+                <p>Potência: 250W | Uso diário: 24h</p>
+              </div>
+
+              <div class="card-actions-wrapper">
+                <span class="badge-consumo medio">Médio Consumo</span>
+                <div class="actions">
+                  <button class="btn-action btn-edit">✏️ Editar</button>
+                  <button class="btn-action btn-delete">🗑️ Excluir</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/menu.js"></script>
+  </body>
+</html>

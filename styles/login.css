@@ -1,0 +1,98 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+:root {
+  --principal: #349dff;
+  --secundaria: #ffe100;
+  --descricao: #2c3e50;
+
+  --text-color: #ffffff;
+  --title-color: #000000;
+  --text-link: #3233f5;
+  --text-warning: #ff3131;
+
+  --font-family: "Inter", sans-serif;
+
+  --box-color: #d5e0e7;
+  --second-box-color: #a6a6a6;
+}
+
+body {
+  font: 500 1rem var(--font-family);
+}
+
+.button {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  background-color: var(--principal);
+  color: var(--text-color);
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  transition: filter 0.2s;
+}
+
+.button:hover {
+  filter: brightness(1.1);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--box-color);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  background-color: var(--box-color);
+  font-family: inherit;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 6rem); 
+}
+
+.card-login {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
+  width: 100%;
+  max-width: 400px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+  text-align: center;
+}

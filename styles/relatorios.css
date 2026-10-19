@@ -1,0 +1,245 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+:root {
+  --principal: #349dff;
+  --secundaria: #ffe100;
+  --descricao: #2c3e50;
+
+  --text-color: #ffffff;
+  --title-color: #000000;
+  --text-link: #3233f5;
+  --text-warning: #ff3131;
+
+  --font-family: "Inter", sans-serif;
+
+  --box-color: #d5e0e7;
+  --second-box-color: #a6a6a6;
+  --bg-color: #f4f7f9;
+  --card-bg: #ffffff;
+}
+
+body {
+  font: 500 1rem var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--descricao);
+}
+
+.mobile-header {
+  display: none;
+  background-color: var(--principal);
+  color: var(--text-color);
+  padding: 1rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-mobile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.logo-mobile img {
+  width: 28px;
+}
+
+.btn-hamburger {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.btn-close {
+  display: none;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.menu {
+  width: 260px;
+  background-color: var(--principal);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: var(--text-color);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.logo-icon {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  opacity: 0.25;
+  z-index: 1;
+}
+
+.logo-title {
+  position: relative;
+  z-index: 2;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-links a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2.5rem;
+}
+
+.page-section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.subtitle {
+  color: var(--second-box-color);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.metric-card {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--box-color);
+}
+
+.metric-card h3 {
+  font-size: 0.9rem;
+  color: var(--second-box-color);
+  margin-bottom: 0.5rem;
+}
+.metric-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--title-color);
+}
+.metric-value.warning {
+  color: var(--text-warning);
+}
+
+.chart-container {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--box-color);
+}
+
+.chart-container h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.bar-group span {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.bar-track {
+  width: 100%;
+  height: 12px;
+  background-color: var(--box-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background-color: var(--principal);
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+  }
+  .btn-close {
+    display: block;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(-100%);
+    justify-content: center;
+  }
+
+  .menu.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    padding: 1.5rem;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
