@@ -1,10 +1,34 @@
 import URL_API from "../services/config.js";
 
 const gridEquipamentos = document.getElementById("equipamentos-grid");
+const btnAdd = document.querySelector(".btn-add");
+const modalCadastro = document.getElementById("modal-cadastro");
+const btnFecharModal = document.getElementById("btn-fechar-modal");
+const btnCancelar = document.getElementById("btn-cancelar");
+const formCadastro = document.getElementById("form-cadastrar-equipamento");
+
+function abrirModal() {
+  modalCadastro.style.display = "flex";
+}
+
+function fecharModal() {
+  modalCadastro.style.display = "none";
+  formCadastro.reset();
+}
+
+btnAdd.addEventListener("click", abrirModal);
+btnFecharModal.addEventListener("click", fecharModal);
+btnCancelar.addEventListener("click", fecharModal);
+
+
+window.addEventListener("click", (event) => {
+  if (event.target === modalCadastro) {
+    fecharModal();
+  }
+});
 
 function obterBadgeConsumo(potencia, horasUso) {
   const consumoKwh = (potencia * horasUso) / 1000;
-
   if (consumoKwh >= 5) {
     return { classe: "alto", texto: "Alto Consumo" };
   } else if (consumoKwh >= 1.5) {
@@ -76,5 +100,39 @@ async function carregarEquipamentos() {
     gridEquipamentos.innerHTML = "<p>Servidor fora do ar!</p>";
   }
 }
+
+formCadastro.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const name_equipment = document.getElementById("nome-eq").value;
+  const power_watts = Number(document.getElementById("potencia-eq").value);
+  const hours_per_day = Number(document.getElementById("horas-eq").value);
+  const days_per_week = Number(document.getElementById("daysWeek-eq").value);
+  const token = localStorage.getItem("userToken");
+
+  try {
+    const response = await fetch(`${URL_API}/equipments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token ? `Bearer ${token}` : "",
+      },
+
+      body: JSON.stringify({ name_equipment, power_watts, hours_per_day, days_per_week }),
+    });
+
+    if (response.ok) {
+      fecharModal();
+      carregarEquipamentos();
+    } else {
+      const errorText = await response.text();
+      console.error("Erro da API:", errorText);
+      alert("Erro ao cadastrar equipamento.");
+    }
+  } catch (error) {
+    console.error("Erro de conexão:", error);
+    alert("Servidor fora do ar!");
+  }
+});
 
 document.addEventListener("DOMContentLoaded", carregarEquipamentos);

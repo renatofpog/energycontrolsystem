@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -27,10 +27,16 @@
 
     <div class="app-container">
       <aside class="menu" id="sidebarMenu">
-        <button class="btn-close" id="closeMenuBtn" aria-label="Fechar menu">&times;</button>
-        
+        <button class="btn-close" id="closeMenuBtn" aria-label="Fechar menu">
+          &times;
+        </button>
+
         <div class="logo">
-          <img src="./assets/raio.svg" alt="Imagem de um raio" class="logo-icon" />
+          <img
+            src="./assets/raio.svg"
+            alt="Imagem de um raio"
+            class="logo-icon"
+          />
           <h1 class="logo-title">EnergyControl</h1>
         </div>
 
@@ -46,9 +52,13 @@
       <main class="main-content">
         <section class="equipamentos-section">
           <h2>Gerenciar Equipamentos</h2>
-          
+
           <div class="search-bar">
-            <input type="text" id="pesquisa" placeholder="Pesquisar equipamentos..." />
+            <input
+              type="text"
+              id="pesquisa"
+              placeholder="Pesquisar equipamentos..."
+            />
             <button class="btn-add">+ Cadastrar</button>
           </div>
 
@@ -62,5 +72,53 @@
 
     <script src="./menu.js"></script>
     <script type="module" src="./controller/dashboard.js"></script>
+    <div id="modal-cadastro" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Cadastrar Novo Equipamento</h3>
+          <button id="btn-fechar-modal" class="btn-close-modal">&times;</button>
+        </div>
+
+        <form id="form-cadastrar-equipamento">
+          <div class="inputs">
+            <label for="nome-eq">Nome do Equipamento</label>
+            <input
+              type="text"
+              id="nome-eq"
+              placeholder="Ex: Ar Condicionado"
+              required
+            />
+
+            <label for="potencia-eq">Potência (Watts)</label>
+            <input
+              type="number"
+              id="potencia-eq"
+              placeholder="Ex: 1200"
+              required
+            />
+
+            <label for="horas-eq">Uso Diário (Horas)</label>
+            <input type="number" id="horas-eq" placeholder="Ex: 8" required />
+
+            <label for="daysWeek-eq">Dias de Uso por Semana</label>
+            <input
+              type="number"
+              id="daysWeek-eq"
+              placeholder="Ex: 5"
+              required
+            />
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" id="btn-cancelar" class="btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              Salvar Equipamento
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
