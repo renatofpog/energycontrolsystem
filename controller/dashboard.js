@@ -1,0 +1,80 @@
+import URL_API from "../services/config.js";
+
+const gridEquipamentos = document.getElementById("equipamentos-grid");
+
+function obterBadgeConsumo(potencia, horasUso) {
+  const consumoKwh = (potencia * horasUso) / 1000;
+
+  if (consumoKwh >= 5) {
+    return { classe: "alto", texto: "Alto Consumo" };
+  } else if (consumoKwh >= 1.5) {
+    return { classe: "medio", texto: "Médio Consumo" };
+  } else {
+    return { classe: "baixo", texto: "Baixo Consumo" };
+  }
+}
+
+async function carregarEquipamentos() {
+  const token = localStorage.getItem("userToken");
+
+  try {
+    const response = await fetch(`${URL_API}/equipments`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token ? `Bearer ${token}` : "",
+      },
+    });
+
+    const textResponse = await response.text();
+    let data;
+    try {
+      data = JSON.parse(textResponse);
+    } catch (e) {
+      data = [];
+    }
+
+    if (response.ok) {
+      gridEquipamentos.innerHTML = "";
+
+      if (!Array.isArray(data) || data.length === 0) {
+        gridEquipamentos.innerHTML = "<p>Nenhum equipamento cadastrado.</p>";
+        return;
+      }
+
+      data.forEach((eq) => {
+        const nome = eq.name_equipment || "Equipamento Sem Nome";
+        const potencia = eq.power_watts || 0;
+        const horasUso = eq.hours_per_day || 0;
+
+        const badgeInfo = obterBadgeConsumo(potencia, horasUso);
+
+        const card = document.createElement("div");
+        card.className = "card-equipamento";
+        card.innerHTML = `
+          <div class="card-info">
+            <h3>${nome}</h3>
+            <p>Potência: ${potencia}W | Uso diário: ${horasUso}h</p>
+          </div>
+
+          <div class="card-actions-wrapper">
+            <span class="badge-consumo ${badgeInfo.classe}">${badgeInfo.texto}</span>
+            <div class="actions">
+              <button class="btn-action btn-edit" data-id="${eq.id}">✏️ Editar</button>
+              <button class="btn-action btn-delete" data-id="${eq.id}">🗑️ Excluir</button>
+            </div>
+          </div>
+        `;
+
+        gridEquipamentos.appendChild(card);
+      });
+    } else {
+      gridEquipamentos.innerHTML = "<p>Erro ao carregar equipamentos.</p>";
+    }
+  } catch (error) {
+    console.error("Erro ao buscar equipamentos:", error);
+    gridEquipamentos.innerHTML = "<p>Servidor fora do ar!</p>";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", carregarEquipamentos);
