@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles/dashboard.css" />
+    <script src="./services/auth-guard.js"></script>
   </head>
   <body>
     <header class="mobile-header">
@@ -51,40 +52,15 @@
             <button class="btn-add">+ Cadastrar</button>
           </div>
 
-          <div class="equipamentos-grid">
-            <div class="card-equipamento">
-              <div class="card-info">
-                <h3>Ar Condicionado Split</h3>
-                <p>Potência: 1200W | Uso diário: 8h</p>
-              </div>
-
-              <div class="card-actions-wrapper">
-                <span class="badge-consumo alto">Alto Consumo</span>
-                <div class="actions">
-                  <button class="btn-action btn-edit">✏️ Editar</button>
-                  <button class="btn-action btn-delete">🗑️ Excluir</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-equipamento">
-              <div class="card-info">
-                <h3>Geladeira Duplex</h3>
-                <p>Potência: 250W | Uso diário: 24h</p>
-              </div>
-
-              <div class="card-actions-wrapper">
-                <span class="badge-consumo medio">Médio Consumo</span>
-                <div class="actions">
-                  <button class="btn-action btn-edit">✏️ Editar</button>
-                  <button class="btn-action btn-delete">🗑️ Excluir</button>
-                </div>
-              </div>
-            </div>
+          <!-- O JavaScript vai preencher este container dinamicamente -->
+          <div class="equipamentos-grid" id="equipamentos-grid">
+            <p>Carregando equipamentos...</p>
           </div>
         </section>
       </main>
     </div>
-    <script src="/menu.js"></script>
+
+    <script src="./menu.js"></script>
+    <script type="module" src="./controller/dashboard.js"></script>
   </body>
 </html>
