@@ -43,7 +43,6 @@
           <ul class="nav-links">
             <li><a href="./dashboard.html">Dashboard</a></li>
             <li><a href="relatorios.html" class="active">Relatórios</a></li>
-            <li><a href="configuracoes.html">Configurações</a></li>
           </ul>
         </nav>
       </aside>
@@ -58,45 +57,28 @@
           <div class="metrics-grid">
             <div class="metric-card">
               <h3>Consumo Total Mensal</h3>
-              <p class="metric-value">345 kWh</p>
+              <p class="metric-value">0 kWh</p>
             </div>
             <div class="metric-card">
               <h3>Custo Estimado</h3>
-              <p class="metric-value warning">R$ 285,40</p>
+              <p class="metric-value warning">R$ 0,00</p>
             </div>
             <div class="metric-card">
               <h3>Equipamento Mais Gastão</h3>
-              <p class="metric-value">Ar Condicionado</p>
+              <p class="metric-value">Nenhum</p>
             </div>
           </div>
 
           <div class="chart-container">
             <h3>Consumo por Equipamento (kWh)</h3>
             <div class="chart-bars">
-              <div class="bar-group">
-                <span>Ar Condicionado Split (160kWh)</span>
-                <div class="bar-track">
-                  <div class="bar-fill" style="width: 80%"></div>
-                </div>
-              </div>
-              <div class="bar-group">
-                <span>Geladeira Duplex (95kWh)</span>
-                <div class="bar-track">
-                  <div class="bar-fill" style="width: 50%"></div>
-                </div>
-              </div>
-              <div class="bar-group">
-                <span>Chuveiro Elétrico (60kWh)</span>
-                <div class="bar-track">
-                  <div class="bar-fill" style="width: 30%"></div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
       </main>
     </div>
 
-    <script src="./menu.js"></script>
+    <script type="module" src="./services/menu.js"></script>
+    <script type="module" src="./controller/relatorios.js"></script>
   </body>
 </html>

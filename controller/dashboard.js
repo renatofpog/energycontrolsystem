@@ -16,8 +16,9 @@ const btnConfirmarDel = document.getElementById("btn-confirmar-del");
 
 let listaEquipamentosEmMemoria = [];
 let idEquipamentoParaExcluir = null;
+let idEquipamentoEditando = null;
 
-// FUNÇÕES DA MODAL DE CADASTRO
+// FUNÇÕES DA MODAL DE CADASTRO / EDIÇÃO
 function abrirModalCadastro() {
   modalCadastro.style.display = "flex";
 }
@@ -25,10 +26,16 @@ function abrirModalCadastro() {
 function fecharModalCadastro() {
   modalCadastro.style.display = "none";
   formCadastro.reset();
+  idEquipamentoEditando = null;
   if (modalTitulo) modalTitulo.textContent = "Cadastrar Novo Equipamento";
 }
 
-if (btnAdd) btnAdd.addEventListener("click", abrirModalCadastro);
+if (btnAdd) btnAdd.addEventListener("click", () => {
+  idEquipamentoEditando = null;
+  if (modalTitulo) modalTitulo.textContent = "Cadastrar Novo Equipamento";
+  abrirModalCadastro();
+});
+
 if (btnFecharModal) btnFecharModal.addEventListener("click", fecharModalCadastro);
 if (btnCancelar) btnCancelar.addEventListener("click", fecharModalCadastro);
 
@@ -46,7 +53,6 @@ function fecharModalDelecao() {
 if (btnFecharModalDel) btnFecharModalDel.addEventListener("click", fecharModalDelecao);
 if (btnCancelarDel) btnCancelarDel.addEventListener("click", fecharModalDelecao);
 
-// Fechar modais ao clicar fora do conteúdo
 window.addEventListener("click", (event) => {
   if (event.target === modalCadastro) {
     fecharModalCadastro();
@@ -68,12 +74,11 @@ function obterBadgeConsumo(potencia, horasUso) {
   }
 }
 
-
 function extrairId(eq) {
   return eq.idEquipments ?? eq.id_equipment ?? eq.idEquipment ?? eq.id;
 }
 
-// MÉTODO CARREGAR EQUIPAMENTOS
+// MÉTODO CARREGAR EQUIPAMENTOS (GET)
 async function carregarEquipamentos() {
   const token = localStorage.getItem("userToken");
 
@@ -103,10 +108,10 @@ async function carregarEquipamentos() {
 
       listaEquipamentosEmMemoria.forEach((eq, index) => {
         const id = extrairId(eq);
-        const name_equipment = eq.name_equipment || eq.name || "Equipamento Sem Nome";
-        const power_watts = eq.power_watts || eq.power || 0;
-        const hours_per_day = eq.hours_per_day || eq.dailyHours || 0;
-        const days_per_week = eq.days_per_week || eq.daysWeek || 0;
+        const name_equipment = eq.name_equipment || "Equipamento Sem Nome";
+        const power_watts = eq.power_watts || 0;
+        const hours_per_day = eq.hours_per_day || 0;
+        const days_per_week = eq.days_per_week || 0;
 
         const badgeInfo = obterBadgeConsumo(power_watts, hours_per_day);
 
@@ -140,18 +145,36 @@ async function carregarEquipamentos() {
 
 gridEquipamentos.addEventListener("click", (event) => {
   const btnDelete = event.target.closest(".btn-delete");
+  const btnEdit = event.target.closest(".btn-edit");
 
   if (btnDelete) {
     const indexStr = btnDelete.getAttribute("data-index");
     const index = Number(indexStr);
     const eqObj = listaEquipamentosEmMemoria[index];
-
     const id = eqObj ? extrairId(eqObj) : null;
 
     if (id !== null && id !== undefined) {
       abrirModalDelecao(id);
     } else {
       alert("Erro: ID do equipamento não encontrado.");
+    }
+  }
+
+  if (btnEdit) {
+    const indexStr = btnEdit.getAttribute("data-index");
+    const index = Number(indexStr);
+    const eqObj = listaEquipamentosEmMemoria[index];
+
+    if (eqObj) {
+      idEquipamentoEditando = extrairId(eqObj);
+
+      document.getElementById("nome-eq").value = eqObj.name_equipment || "";
+      document.getElementById("potencia-eq").value = eqObj.power_watts || "";
+      document.getElementById("horas-eq").value = eqObj.hours_per_day || "";
+      document.getElementById("daysWeek-eq").value = eqObj.days_per_week || "";
+
+      if (modalTitulo) modalTitulo.textContent = "Editar Equipamento";
+      abrirModalCadastro();
     }
   }
 });
@@ -183,22 +206,7 @@ if (btnConfirmarDel) {
   });
 }
 
-// MÉTODO CADASTRAR EQUIPAMENTO
-async function cadastrarEquipamento(dados) {
-  const token = localStorage.getItem("userToken");
-
-  const response = await fetch(`${URL_API}/equipments`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Bearer ${token}` : "",
-    },
-    body: JSON.stringify(dados),
-  });
-
-  return response;
-}
-
+// MÉTODO CADASTRAR (POST) OU ATUALIZAR (PUT)
 formCadastro.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -206,6 +214,10 @@ formCadastro.addEventListener("submit", async (event) => {
   const power_watts = Number(document.getElementById("potencia-eq").value);
   const hours_per_day = Number(document.getElementById("horas-eq").value);
   const days_per_week = Number(document.getElementById("daysWeek-eq").value);
+  const token = localStorage.getItem("userToken");
+
+  const isEdicao = idEquipamentoEditando !== null;
+  const method = isEdicao ? "PUT" : "POST";
 
   const dadosEquipamento = {
     name_equipment,
@@ -213,9 +225,24 @@ formCadastro.addEventListener("submit", async (event) => {
     hours_per_day,
     days_per_week,
   };
+  
+  if (isEdicao) {
+    const numId = Number(idEquipamentoEditando);
+    dadosEquipamento.idEquipments = numId;
+    dadosEquipamento.id_equipment = numId;
+    dadosEquipamento.idEquipment = numId;
+    dadosEquipamento.id = numId;
+  }
 
   try {
-    const response = await cadastrarEquipamento(dadosEquipamento);
+    const response = await fetch(`${URL_API}/equipments`, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      body: JSON.stringify(dadosEquipamento),
+    });
 
     if (response.ok) {
       fecharModalCadastro();
@@ -223,9 +250,11 @@ formCadastro.addEventListener("submit", async (event) => {
     } else {
       const errorText = await response.text();
       console.error("Erro da API:", errorText);
+      alert(isEdicao ? "Erro ao atualizar equipamento." : "Erro ao cadastrar equipamento.");
     }
   } catch (error) {
     console.error("Erro de conexão:", error);
+    alert("Servidor fora do ar!");
   }
 });
 
