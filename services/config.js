@@ -1,2 +1,2 @@
-const URL_API = "http://localhost:8080"
+const URL_API = "https://energycontrol-api.onrender.com"
 export default URL_API;
