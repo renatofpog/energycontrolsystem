@@ -26,7 +26,7 @@ formulario.addEventListener("submit", async (event) => {
     if (response.ok) {
       localStorage.setItem("userToken", data.token);
 
-      window.location.href = "./dashboard.html";
+      window.location.href = "https://renatofpog.github.io/energycontrolsystem/dashboard";
     } else {
       alert(data.message || "Erro ao fazer login");
     }
