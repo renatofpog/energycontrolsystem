@@ -25,7 +25,7 @@ formulario.addEventListener("submit", async (event) => {
     }
 
     if (response.ok) {
-      window.location.href = "../index.html";
+      window.location.href = "https://renatofpog.github.io/energycontrolsystem/";
     } else {
       alert(data.message || "Erro erro ao se cadastrar.");
     }
