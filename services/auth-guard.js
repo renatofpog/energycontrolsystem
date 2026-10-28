@@ -5,7 +5,7 @@ if (!token) {
 }
 
 export default function verificarTokenExpirado() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("userToken");
 
   if (!token) {
     window.location.href = "https://renatofpog.github.io/energycontrolsystem/";
@@ -18,11 +18,11 @@ export default function verificarTokenExpirado() {
 
     if (payloadSegundos >= payload.exp) {
       alert("Sua sessão expirou. Faça login novamente.");
-      localStorage.removeItem("token");
+      localStorage.removeItem("userToken");
       window.location.href = "https://renatofpog.github.io/energycontrolsystem/";
     }
   } catch (e) {
-    localStorage.removeItem("token");
+    localStorage.removeItem("userToken");
     window.location.href = "https://renatofpog.github.io/energycontrolsystem/";
   }
 }
