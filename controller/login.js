@@ -8,6 +8,11 @@ formulario.addEventListener("submit", async (event) => {
   const email = document.getElementById("email").value;
   const passwordHash = document.getElementById("senha").value;
 
+  if (!email || !passwordHash) {
+    alert("Ops, preencha todos os dados para continuar!");
+    return
+  }
+
   try {
     const response = await fetch(`${URL_API}/users/login`, {
       method: "POST",

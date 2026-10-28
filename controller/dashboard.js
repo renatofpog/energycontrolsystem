@@ -31,13 +31,15 @@ function fecharModalCadastro() {
   if (modalTitulo) modalTitulo.textContent = "Cadastrar Novo Equipamento";
 }
 
-if (btnAdd) btnAdd.addEventListener("click", () => {
-  idEquipamentoEditando = null;
-  if (modalTitulo) modalTitulo.textContent = "Cadastrar Novo Equipamento";
-  abrirModalCadastro();
-});
+if (btnAdd)
+  btnAdd.addEventListener("click", () => {
+    idEquipamentoEditando = null;
+    if (modalTitulo) modalTitulo.textContent = "Cadastrar Novo Equipamento";
+    abrirModalCadastro();
+  });
 
-if (btnFecharModal) btnFecharModal.addEventListener("click", fecharModalCadastro);
+if (btnFecharModal)
+  btnFecharModal.addEventListener("click", fecharModalCadastro);
 if (btnCancelar) btnCancelar.addEventListener("click", fecharModalCadastro);
 
 // FUNÇÕES DA MODAL DE DELEÇÃO
@@ -51,8 +53,10 @@ function fecharModalDelecao() {
   idEquipamentoParaExcluir = null;
 }
 
-if (btnFecharModalDel) btnFecharModalDel.addEventListener("click", fecharModalDelecao);
-if (btnCancelarDel) btnCancelarDel.addEventListener("click", fecharModalDelecao);
+if (btnFecharModalDel)
+  btnFecharModalDel.addEventListener("click", fecharModalDelecao);
+if (btnCancelarDel)
+  btnCancelarDel.addEventListener("click", fecharModalDelecao);
 
 window.addEventListener("click", (event) => {
   if (event.target === modalCadastro) {
@@ -102,7 +106,10 @@ async function carregarEquipamentos() {
     if (response.ok) {
       gridEquipamentos.innerHTML = "";
 
-      if (!Array.isArray(listaEquipamentosEmMemoria) || listaEquipamentosEmMemoria.length === 0) {
+      if (
+        !Array.isArray(listaEquipamentosEmMemoria) ||
+        listaEquipamentosEmMemoria.length === 0
+      ) {
         gridEquipamentos.innerHTML = "<p>Nenhum equipamento cadastrado.</p>";
         return;
       }
@@ -187,12 +194,15 @@ if (btnConfirmarDel) {
     const token = localStorage.getItem("userToken");
 
     try {
-      const response = await fetch(`${URL_API}/equipments/${Number(idEquipamentoParaExcluir)}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
+      const response = await fetch(
+        `${URL_API}/equipments/${Number(idEquipamentoParaExcluir)}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
         },
-      });
+      );
 
       if (response.ok) {
         fecharModalDelecao();
@@ -220,13 +230,23 @@ formCadastro.addEventListener("submit", async (event) => {
   const isEdicao = idEquipamentoEditando !== null;
   const method = isEdicao ? "PUT" : "POST";
 
+  if (hours_per_day > 24 || days_per_week > 7) {
+    alert("Ops, dados inválidos!");
+    return;
+  }
+
+  if (!name_equipment || !power_watts || !hours_per_day || !days_per_week) {
+    alert("Ops, preencha todos os dados para continuar!");
+    return;
+  }
+  
   const dadosEquipamento = {
     name_equipment,
     power_watts,
     hours_per_day,
     days_per_week,
   };
-  
+
   if (isEdicao) {
     const numId = Number(idEquipamentoEditando);
     dadosEquipamento.idEquipments = numId;
@@ -251,7 +271,11 @@ formCadastro.addEventListener("submit", async (event) => {
     } else {
       const errorText = await response.text();
       console.error("Erro da API:", errorText);
-      alert(isEdicao ? "Erro ao atualizar equipamento." : "Erro ao cadastrar equipamento.");
+      alert(
+        isEdicao
+          ? "Erro ao atualizar equipamento."
+          : "Erro ao cadastrar equipamento.",
+      );
     }
   } catch (error) {
     console.error("Erro de conexão:", error);
