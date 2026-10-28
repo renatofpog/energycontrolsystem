@@ -1,5 +1,5 @@
 import URL_API from "../services/config.js";
-
+import verificarTokenExpirado from "../services/auth-guard.js";
 
 const cardConsumoTotal = document.querySelector(".metrics-grid .metric-card:nth-child(1) .metric-value");
 const cardCustoEstimado = document.querySelector(".metrics-grid .metric-card:nth-child(2) .metric-value");
@@ -104,5 +104,5 @@ function exibirEstadoVazio() {
     containerChartBars.innerHTML = "<p>Nenhum equipamento cadastrado para gerar relatório.</p>";
   }
 }
-
+verificarTokenExpirado();
 document.addEventListener("DOMContentLoaded", carregarRelatorios);

@@ -1,4 +1,5 @@
 import URL_API from "../services/config.js";
+import verificarTokenExpirado from "../services/auth-guard.js";
 
 const gridEquipamentos = document.getElementById("equipamentos-grid");
 const btnAdd = document.querySelector(".btn-add");
@@ -258,4 +259,5 @@ formCadastro.addEventListener("submit", async (event) => {
   }
 });
 
+verificarTokenExpirado();
 document.addEventListener("DOMContentLoaded", carregarEquipamentos);
