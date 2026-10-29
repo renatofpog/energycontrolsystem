@@ -1,5 +1,4 @@
 import URL_API from "../services/config.js";
-import verificarTokenExpirado from "../services/auth-guard.js";
 
 const gridEquipamentos = document.getElementById("equipamentos-grid");
 const btnAdd = document.querySelector(".btn-add");
@@ -239,7 +238,7 @@ formCadastro.addEventListener("submit", async (event) => {
     alert("Ops, preencha todos os dados para continuar!");
     return;
   }
-  
+
   const dadosEquipamento = {
     name_equipment,
     power_watts,
@@ -283,5 +282,4 @@ formCadastro.addEventListener("submit", async (event) => {
   }
 });
 
-verificarTokenExpirado();
 document.addEventListener("DOMContentLoaded", carregarEquipamentos);

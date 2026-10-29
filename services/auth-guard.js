@@ -1,4 +1,4 @@
-export default function verificarTokenExpirado() {
+function verificarTokenExpirado() {
   const token = localStorage.getItem("userToken");
 
   if (!token) {
@@ -20,3 +20,5 @@ export default function verificarTokenExpirado() {
     window.location.href = "https://renatofpog.github.io/energycontrolsystem/";
   }
 }
+
+verificarTokenExpirado();

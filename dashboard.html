@@ -12,7 +12,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles/dashboard.css" />
-    <script src="./services/auth-guard.js"></script>
   </head>
   <body>
     <header class="mobile-header">
@@ -61,7 +60,6 @@
             <button class="btn-add">+ Cadastrar</button>
           </div>
 
-
           <div class="equipamentos-grid" id="equipamentos-grid">
             <p>Carregando equipamentos...</p>
           </div>
@@ -69,9 +67,9 @@
       </main>
     </div>
 
+    <script src="./services/auth-guard.js"></script>
     <script src="./services/menu.js"></script>
     <script type="module" src="./controller/dashboard.js"></script>
-
 
     <div id="modal-cadastro" class="modal-overlay" style="display: none">
       <div class="modal-content">
@@ -130,7 +128,7 @@
         </div>
 
         <div style="padding: 20px 0; color: #333; font-size: 15px;">
-          <p>Deseja mesmo deletar o registro do equipamento?</p>
+          <p>Deseja mesmo deletar o registo do equipamento?</p>
         </div>
 
         <div class="modal-actions">
